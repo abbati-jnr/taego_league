@@ -25,7 +25,6 @@ class InvitationListCreate(generics.ListCreateAPIView):
     serializer_class = InvitationSerializer
 
     def perform_create(self, serializer):
-        league = serializer.validated_data['league']
         team = serializer.validated_data['team']
         email = team.team_manager
         token = get_random_string(64)
@@ -36,7 +35,7 @@ class InvitationListCreate(generics.ListCreateAPIView):
         invitation_url = f"{url}/team/accept-invitation/{token}/"
         send_mail(
             'Invitation to join league',
-            f'You have been invited to join the {league.name}. Click the link to join: {invitation_url}',
+            f'You have been invited to join the {team.name}. Click the link to join: {invitation_url}',
             settings.EMAIL_HOST_USER,
             [email],
             fail_silently=False,
