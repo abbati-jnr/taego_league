@@ -12,7 +12,6 @@ class User(BaseUser):
         (MANAGER, 'Manager'),
         (PLAYER, 'Player'),
     )
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES)
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
     profile_pic = models.ImageField(upload_to='profile/')
     objects = BaseUserManager()
-
